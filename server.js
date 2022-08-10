@@ -16,7 +16,7 @@ app.get('/notes', (req, res) =>
 
 app.get('*', (req, res) =>
   res.send(
-    `Make a GET request using Insomnia to <a href="http://localhost:${PORT}/api/terms">http://localhost:${PORT}/api/terms</a>`
+    `Make a GET request using Insomnia to <a href="http://localhost:${PORT}/api/notes">http://localhost:${PORT}/api/notes</a>`
   )
 );
 
@@ -31,7 +31,7 @@ app.get('/api/notes', (req, res) => res.json(notes));
 
 fs.writeFile(
     './db/notes.json',
-    JSON.stringify(parsedReviews, null, 4),
+    JSON.stringify(notes, null, 4),
     (writeErr) =>
       writeErr
         ? console.error(writeErr)
