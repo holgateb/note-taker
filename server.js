@@ -17,21 +17,13 @@ app.get("/notes", (req, res) =>
   res.sendFile(path.join(__dirname, "public/notes.html"))
 );
 
-//GET * should return the index.html file
-
-app.get("*", (req, res) =>
-  res.send(
-    `Make a GET request using Insomnia to <a href="http://localhost:${PORT}/api/notes">http://localhost:${PORT}/api/notes</a>`
-  )
-);
-
 //GET /api/notes should read the `db.json` file
 
 app.get("/api/notes", (req, res) => res.json(notes));
 
 //POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client
 
-fs.readFile("./db/notes.json", "utf8", (err, data) => {
+fs.readFile("./db/db.json", "utf8", (err, data) => {
   if (err) {
     console.error(err);
   } else {
@@ -44,7 +36,7 @@ fs.readFile("./db/notes.json", "utf8", (err, data) => {
     //fs.writefile
 
     fs.writeFile(
-      "./db/notes.json",
+      "./db/db.json",
       JSON.stringify(notes, null, 4),
       (writeErr) =>
         writeErr
@@ -53,6 +45,14 @@ fs.readFile("./db/notes.json", "utf8", (err, data) => {
     );
   }
 });
+
+//GET * should return the index.html file
+
+app.get("*", (req, res) =>
+  res.send(
+    `Make a GET request using Insomnia to <a href="http://localhost:${PORT}/api/notes">http://localhost:${PORT}/api/notes</a>`
+  )
+);
 
 app.listen(PORT, () =>
   console.log(`Express server listening on port ${PORT}!`)
